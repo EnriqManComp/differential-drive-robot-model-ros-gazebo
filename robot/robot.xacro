@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="robot">
+
+    <!-- =================================================================================== -->
+    <!-- |    This XACRO contains the integration of the different part of the robot       | -->
+    <!-- =================================================================================== -->
+
+    <xacro:include filename="/home/enrique/catkin_ws/src/algorithm/models/robot/robot_core.xacro" />
+
+</robot>

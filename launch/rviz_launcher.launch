@@ -1,0 +1,16 @@
+<launch>
+
+    <!-- ARGUMENTS -->
+    <arg name="use_sim_time" default="false"/>
+
+    <!-- PARAMETERS -->
+    <param name="robot_description" textfile="/home/enrique/catkin_ws/src/algorithm/models/robot/robot.urdf" />
+
+    <!-- INCLUDE FILES -->
+
+    <!-- NODES -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen" />
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" output="screen" />
+    <node name="rviz" pkg="rviz" type="rviz"/>
+
+</launch>
