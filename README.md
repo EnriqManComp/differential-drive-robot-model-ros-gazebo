@@ -1,4 +1,4 @@
-# Differential Drive Robot (DDR) model for using in ROS and Gazebo
+# Differential Drive Robot (DDR) model for use in ROS and Gazebo
 ## Recommended configuration
 - Configure a [catkin workspace](http://wiki.ros.org/catkin/Tutorials/create_a_workspace).
 - [Create packages inside this workspace](http://wiki.ros.org/catkin/Tutorials/CreatingPackage).
