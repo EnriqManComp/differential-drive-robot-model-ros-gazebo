@@ -4,7 +4,7 @@
     <arg name="use_sim_time" default="false"/>
 
     <!-- PARAMETERS -->
-    <param name="robot_description" textfile="/home/enrique/catkin_ws/src/algorithm/models/robot/robot.urdf" />
+    <param name="robot_description" textfile="YOUR_PATH/robot.urdf" />
 
     <!-- INCLUDE FILES -->
 
