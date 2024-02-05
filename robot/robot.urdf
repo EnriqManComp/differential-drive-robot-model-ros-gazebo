@@ -11,6 +11,109 @@
   <!-- |    This XACRO contains physical elements (the chassis and wheels ) of the robot | -->
   <!-- =================================================================================== -->
   <!-- The inertial calculations was taken from https://en.wikipedia.org/wiki/List_of_moments_of_inertia -->
+  <!-- =================================================================================== -->
+  <!-- |                 This XACRO contains the sensors of the robot                    | -->
+  <!-- =================================================================================== -->
+  <!-- The inertial calculations was taken from https://en.wikipedia.org/wiki/List_of_moments_of_inertia -->
+  <!--    Laser sensor    -->
+  <joint name="laser_joint" type="fixed">
+    <parent link="chassis"/>
+    <child link="hokuyo_link"/>
+    <origin rpy="0 0 0" xyz="0.1 0 0.175"/>
+  </joint>
+  <link name="hokuyo_link">
+    <visual>
+      <geometry>
+        <cylinder length="0.04" radius="0.05"/>
+      </geometry>
+      <material name="white">
+        <!-- The colors are RGB plus alpha (transparency) -->
+        <color rgba="0 0 1 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="0.04" radius="0.05"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="7.583333333333335e-05" ixy="0.0" ixz="0.0" iyy="7.583333333333335e-05" iyz="0.0" izz="0.00012500000000000003"/>
+    </inertial>
+  </link>
+  <gazebo reference="laser_frame">
+    <material>Gazebo/White</material>
+  </gazebo>
+  <!-- hokuyo -->
+  <gazebo reference="hokuyo_link">
+    <sensor name="head_hokuyo_sensor" type="gpu_ray">
+      <pose>0 0 0 0 0 0</pose>
+      <visualize>false</visualize>
+      <update_rate>10</update_rate>
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>360</samples>
+            <resolution>1</resolution>
+            <min_angle>-3.14</min_angle>
+            <max_angle>3.14</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.10</min>
+          <max>30.0</max>
+          <resolution>0.01</resolution>
+        </range>
+      </ray>
+      <plugin filename="libgazebo_ros_gpu_laser.so" name="gazebo_ros_head_hokuyo_controller">
+        <topicName>/laser/scan</topicName>
+        <frameName>hokuyo_link</frameName>
+      </plugin>
+    </sensor>
+  </gazebo>
+  <!--    Chassis contact sensor    -->
+  <gazebo reference="chassis">
+    <sensor name="contactsensor_sensor" type="contact">
+      <selfCollide>false</selfCollide>
+      <alwaysOn>true</alwaysOn>
+      <contact>
+        <collision>base_link_fixed_joint_lump__chassis_bump_sensor_collision_collision</collision>
+      </contact>
+      <plugin filename="libgazebo_ros_bumper.so" name="chassis_plugin">
+        <bumperTopicName>/robot/chassis_contact</bumperTopicName>
+        <frameName>chassis</frameName>
+      </plugin>
+    </sensor>
+  </gazebo>
+  <!--    Left wheel contact sensor    -->
+  <gazebo reference="left_wheel">
+    <sensor name="left_wheel_contactsensor_sensor" type="contact">
+      <selfCollide>false</selfCollide>
+      <alwaysOn>true</alwaysOn>
+      <contact>
+        <collision>left_wheel_link_bump_sensor_collision_collision</collision>
+      </contact>
+      <plugin filename="libgazebo_ros_bumper.so" name="left_wheel_link_plugin">
+        <bumperTopicName>/robot/left_wheel_contact</bumperTopicName>
+        <frameName>left_wheel</frameName>
+      </plugin>
+    </sensor>
+  </gazebo>
+  <!--    Right wheel contact sensor    -->
+  <gazebo reference="right_wheel">
+    <sensor name="right_wheel_contactsensor_sensor" type="contact">
+      <selfCollide>false</selfCollide>
+      <alwaysOn>true</alwaysOn>
+      <contact>
+        <collision>right_wheel_link_bump_sensor_collision_collision</collision>
+      </contact>
+      <plugin filename="libgazebo_ros_bumper.so" name="right_wheel_link_plugin">
+        <bumperTopicName>/robot/right_wheel_contact</bumperTopicName>
+        <frameName>right_wheel</frameName>
+      </plugin>
+    </sensor>
+  </gazebo>
   <!--BASE LINK-->
   <link name="base_link">
 
@@ -32,10 +135,10 @@
       </geometry>
       <material name="blue">
         <!-- The colors are RGB plus alpha (transparency) -->
-        <color rgba="0 0 1 0.5"/>
+        <color rgba="0 0 1 1.0"/>
       </material>
     </visual>
-    <collision>
+    <collision name="chassis_link_bump_sensor_collision">
       <!-- Origin of the box -->
       <origin xyz="0.15 0 0.075"/>
       <geometry>
@@ -49,6 +152,9 @@
       <inertia ixx="0.004687499999999999" ixy="0.0" ixz="0.0" iyy="0.004687499999999999" iyz="0.0" izz="0.0075"/>
     </inertial>
   </link>
+  <gazebo reference="chassis">
+    <material>Gazebo/Blue</material>
+  </gazebo>
   <!-- LEFT WHEEL JOINT-->
   <joint name="left_wheel_joint" type="continuous">
     <parent link="base_link"/>
@@ -63,10 +169,10 @@
       </geometry>
       <material name="blue">
         <!-- The colors are RGB plus alpha (transparency) -->
-        <color rgba="0 0 1 0.5"/>
+        <color rgba="0 0 1 1.0"/>
       </material>
     </visual>
-    <collision>
+    <collision name="left_wheel_link_bump_sensor_collision">
       <geometry>
         <cylinder length="0.04" radius="0.05"/>
       </geometry>
@@ -77,6 +183,9 @@
       <inertia ixx="7.583333333333335e-05" ixy="0.0" ixz="0.0" iyy="7.583333333333335e-05" iyz="0.0" izz="0.00012500000000000003"/>
     </inertial>
   </link>
+  <gazebo reference="left_wheel">
+    <material>Gazebo/Blue</material>
+  </gazebo>
   <!-- RIGHT WHEEL JOINT-->
   <joint name="right_wheel_joint" type="continuous">
     <parent link="base_link"/>
@@ -91,10 +200,10 @@
       </geometry>
       <material name="blue">
         <!-- The colors are RGB plus alpha (transparency) -->
-        <color rgba="0 0 1 0.5"/>
+        <color rgba="0 0 1 1.0"/>
       </material>
     </visual>
-    <collision>
+    <collision name="right_wheel_link_bump_sensor_collision">
       <geometry>
         <cylinder length="0.04" radius="0.05"/>
       </geometry>
@@ -105,6 +214,9 @@
       <inertia ixx="7.583333333333335e-05" ixy="0.0" ixz="0.0" iyy="7.583333333333335e-05" iyz="0.0" izz="0.00012500000000000003"/>
     </inertial>
   </link>
+  <gazebo reference="right_wheel">
+    <material>Gazebo/Blue</material>
+  </gazebo>
   <!-- CASTER WHEEL LINK -->
   <joint name="caster_wheel_joint" type="fixed">
     <parent link="chassis"/>
@@ -132,5 +244,52 @@
       <inertia ixx="0.00010000000000000005" ixy="0.0" ixz="0.0" iyy="0.00010000000000000005" iyz="0.0" izz="0.00010000000000000005"/>
     </inertial>
   </link>
+  <gazebo reference="caster_wheel">
+    <material>Gazebo/Blue</material>
+  </gazebo>
+  <gazebo reference="caster_wheel">
+    <!-- Reduce the friction of the caster wheel with the enviroment -->
+    <mu1 value="0.001"/>
+    <mu2 value="0.001"/>
+  </gazebo>
+  <!-- =================================================================================== -->
+  <!-- |    This XACRO contains physical elements (the chassis and wheels ) of the robot | -->
+  <!-- =================================================================================== -->
+  <gazebo>
+    <plugin filename="libgazebo_ros_diff_drive.so" name="diff_drive">
+      <!-- Plugin update rate in Hz -->
+      <updateRate>30.0</updateRate>
+      <!-- Name of left joint, defaults to `left_joint` -->
+      <leftJoint>left_wheel_joint</leftJoint>
+      <!-- Name of right joint, defaults to `right_joint` -->
+      <rightJoint>right_wheel_joint</rightJoint>
+      <!-- The distance from the center of one wheel to the other, in meters, defaults to 0.34 m -->
+      <wheelSeparation>0.350</wheelSeparation>
+      <!-- Diameter of the wheels, in meters, defaults to 0.15 m -->
+      <wheelDiameter>0.10</wheelDiameter>
+      <!-- Wheel acceleration, in rad/s^2, defaults to 0.0 rad/s^2 -->
+      <wheelAcceleration>1.0</wheelAcceleration>
+      <!-- Maximum torque which the wheels can produce, in Nm, defaults to 5 Nm -->
+      <wheelTorque>20</wheelTorque>
+      <!-- Topic to receive geometry_msgs/Twist message commands, defaults to `cmd_vel` -->
+      <commandTopic>cmd_vel</commandTopic>
+      <!-- Topic to publish nav_msgs/Odometry messages, defaults to `odom` -->
+      <odometryTopic>odom</odometryTopic>
+      <!-- Odometry frame, defaults to `odom` -->
+      <odometryFrame>odom</odometryFrame>
+      <!-- Robot frame to calculate odometry from, defaults to `base_footprint` -->
+      <robotBaseFrame>base_footprint</robotBaseFrame>
+      <!-- Odometry source, 0 for ENCODER, 1 for WORLD, defaults to WORLD -->
+      <odometrySource>1</odometrySource>
+      <!-- Set to true to publish transforms for the wheel links, defaults to false -->
+      <publishWheelTF>true</publishWheelTF>
+      <!-- Set to true to publish transforms for the odometry, defaults to true -->
+      <publishOdom>true</publishOdom>
+      <!-- Set to true to publish sensor_msgs/JointState on /joint_states for the wheel joints, defaults to false -->
+      <publishWheelJointState>true</publishWheelJointState>
+      <!-- Set to true to swap right and left wheels, defaults to true -->
+      <legacyMode>false</legacyMode>
+    </plugin>
+  </gazebo>
 </robot>
 

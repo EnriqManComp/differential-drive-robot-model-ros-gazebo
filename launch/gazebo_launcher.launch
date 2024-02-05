@@ -1,0 +1,22 @@
+<launch>
+
+    <!-- ARGUMENTS -->
+    <arg name="use_sim_time" default="false"/>
+    <arg name="x" default="0" />
+    <arg name="y" default="0" />
+    <arg name="z" default="0.5" />
+    <!-- PARAMETERS -->
+    <param name="robot_description" textfile="/home/enrique/catkin_ws/src/algorithm/models/robot/robot.urdf" />
+    <!--
+    <param name="robot_description" command="$(find xacro)/xacro inorder '$(find robot)/urdf/robot.urdf'" />
+    -->
+
+    <!-- INCLUDE FILES -->
+
+    <!-- NODES -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen" />
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" output="screen" />    
+    <node name="spawn_robot" pkg="gazebo_ros" type="spawn_model" output="screen"
+          args="-urdf -param robot_description -model myrobot -x $(arg x) -y $(arg y) -z $(arg z)"  />
+
+</launch>

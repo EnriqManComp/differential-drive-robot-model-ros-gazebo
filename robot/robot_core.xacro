@@ -7,6 +7,7 @@
     
     <xacro:include filename="/home/enrique/catkin_ws/src/algorithm/models/robot/materials.xacro" />
     <xacro:include filename="/home/enrique/catkin_ws/src/algorithm/models/robot/inertial_macros.xacro" />
+    <xacro:include filename="/home/enrique/catkin_ws/src/algorithm/models/robot/sensors.xacro" />
 
     <!--BASE LINK-->
 
@@ -34,7 +35,7 @@
             <!--Material-->
             <xacro:blue_material />            
         </visual>
-        <collision>
+        <collision name="chassis_link_bump_sensor_collision">
             <!-- Origin of the box -->
             <origin xyz="0.15 0 0.075" />
             <geometry>
@@ -46,6 +47,8 @@
             <origin xyz="0.15 0 0.075" rpy="0 0 0" />
         </xacro:inertial_box>        
     </link>
+
+    <xacro:blue_gazebo_material object="chassis" />
 
     <!-- LEFT WHEEL JOINT-->
     
@@ -63,7 +66,7 @@
             </geometry>
             <xacro:blue_material />
         </visual>
-        <collision>
+        <collision name="left_wheel_link_bump_sensor_collision">
             <geometry>
                 <cylinder radius="0.05" length="0.04" />
             </geometry>            
@@ -72,6 +75,8 @@
             <origin xyz="0 0 0" rpy="0 0 0"/>
         </xacro:inertial_cylinder>
     </link>
+
+    <xacro:blue_gazebo_material object="left_wheel" />
 
     <!-- RIGHT WHEEL JOINT-->
     
@@ -89,7 +94,7 @@
             </geometry>
             <xacro:blue_material />
         </visual>
-        <collision>
+        <collision name="right_wheel_link_bump_sensor_collision">
             <geometry>
                 <cylinder radius="0.05" length="0.04" />
             </geometry>            
@@ -98,6 +103,8 @@
             <origin xyz="0 0 0" rpy="0 0 0"/>
         </xacro:inertial_cylinder>
     </link>
+
+    <xacro:blue_gazebo_material object="right_wheel" />
 
     <!-- CASTER WHEEL LINK -->
 
@@ -123,6 +130,13 @@
             <origin xyz="0 0 0" rpy="0 0 0"/>
         </xacro:inertial_sphere>
     </link>
+
+    <xacro:black_gazebo_material object="caster_wheel" />
+    <gazebo reference="caster_wheel">
+        <!-- Reduce the friction of the caster wheel with the enviroment -->
+        <mu1 value="0.001" />
+        <mu2 value="0.001" />
+    </gazebo>
 
 
 

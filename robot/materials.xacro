@@ -7,7 +7,14 @@
     <xacro:macro name="blue_material">
         <material name="blue">
             <!-- The colors are RGB plus alpha (transparency) -->
-            <color rgba="0 0 1 0.5" />
+            <color rgba="0 0 1 1.0" />
+        </material>
+    </xacro:macro>
+
+    <xacro:macro name="white_material">
+        <material name="white">
+            <!-- The colors are RGB plus alpha (transparency) -->
+            <color rgba="0 0 1 1.0" />
         </material>
     </xacro:macro>
 
@@ -16,6 +23,25 @@
             <!-- The colors are RGB plus alpha (transparency) -->
             <color rgba="0 0 0 1.0" />
         </material>
+    </xacro:macro>
+
+    <!-- Gazebo Materials -->
+    <xacro:macro name="blue_gazebo_material" params="object">
+        <gazebo reference="${object}">
+            <material>Gazebo/Blue</material>
+        </gazebo>
+    </xacro:macro>
+
+    <xacro:macro name="white_gazebo_material" params="object">
+        <gazebo reference="${object}">
+            <material>Gazebo/White</material>
+        </gazebo>
+    </xacro:macro>
+
+    <xacro:macro name="black_gazebo_material" params="object">
+        <gazebo reference="${object}">
+            <material>Gazebo/Blue</material>
+        </gazebo>
     </xacro:macro>
 
     
