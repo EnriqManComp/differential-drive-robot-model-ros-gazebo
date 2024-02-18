@@ -135,7 +135,7 @@ The structure of each component are describe below:
 </gazebo>
 ```
 ### Fourth step: [Control](robot/control.xacro)
-This XACRO file contains the differential drive plugin for activate de differential drive control for the robot. You can check the documentation of sensor plugins in ROS in the following link !(sensor plugins)[https://classic.gazebosim.org/tutorials?tut=ros_gzplugins]
+This XACRO file contains the differential drive plugin to activate the differential drive control for the robot. You can refer to the documentation of sensor plugins in ROS at the following link. ![sensor plugins](https://classic.gazebosim.org/tutorials?tut=ros_gzplugins)
 ### Fifth step: [Sensors](robot/control.xacro)
 #### Lidar
 #### Contact sensor
