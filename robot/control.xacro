@@ -2,7 +2,7 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
 
     <!-- =================================================================================== -->
-    <!-- |    This XACRO contains physical elements (the chassis and wheels ) of the robot | -->
+    <!-- |          This XACRO contains the differential drive plugin for the robot        | -->
     <!-- =================================================================================== -->
 
     <gazebo>
