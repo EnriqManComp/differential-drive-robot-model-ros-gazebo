@@ -40,17 +40,16 @@ The project has six xacro files:
 
 Each xacro was checked with RViz and subsequently with Gazebo. For this check, the robot.xacro file was converted to robot.urdf using the following command:
 ```cmd
-xacro two_wheeled_robot.xacro > two_wheeled_robot_without_xacro.urdf
+xacro robot.xacro > robot.urdf
 ```
-If you want to convert this file to an SDF file, you can use the following command:
+If you want to convert this URDF file to an SDF file, you can use the following command:
 ```cmd
-gz sdf -p two_wheeled_robot_without_xacro.urdf > two_wheeled_robot.sdf
+gz sdf -p robot.urdf > robot.sdf
 ```
 ### Second step: [Materials](robot/materials.xacro)
 This file contains the color of each component for RViz and Gazebo visualization. For code reuse purposes, this xacro file was coded using macros. 
 ### Third step: [Physical elements of the robot](robot/robot_core.xacro)
-
-
+The structure of each component are describe below:
 #### Chassis
 ```xml
 <!--BASE LINK-->
@@ -71,7 +70,7 @@ This file contains the color of each component for RViz and Gazebo visualization
     <!-- Set the area of collision for the chassis element -->
     <!-- Typically, the same physical configuration establish in visual tag-->    
   </collision>
-  <!-- Inertial configuration -->
+  <!-- Inertial configuration for the chassis-->
   <xacro:inertial_box mass="0.5" x="0.3" y="0.3" z="0.15">
     <origin xyz="0.15 0 0.075" rpy="0 0 0" />
   </xacro:inertial_box>        
@@ -84,11 +83,13 @@ This file contains the color of each component for RViz and Gazebo visualization
 <!-- LEFT WHEEL JOINT-->
 <joint name="left_wheel_joint" type="continuous">
   <!-- The parent and child element ( BASE LINK -> LEFT WHEEL ), origin (x, y, z) of the joint, and rotation (x,y,z) of the joint  -->
+  <!-- NOTICE the continuous type of the joint>
 </joint>
 
 <link name="left_wheel">
   <visual>...</visual>
   <collision>...</collision>
+  <!-- Inertial configuration for the wheels-->
   <xacro:inertial_cylinder mass="0.1" length="0.04" radius="0.05">
     <origin xyz="0 0 0" rpy="0 0 0"/>
   </xacro:inertial_cylinder>
@@ -97,9 +98,9 @@ This file contains the color of each component for RViz and Gazebo visualization
 <xacro:blue_gazebo_material object="left_wheel" />
 
 <!-- RIGHT WHEEL JOINT-->
-
 <joint name="right_wheel_joint" type="continuous">
   <!-- The parent and child element ( BASE LINK -> RIGHT WHEEL ), origin (x, y, z) of the joint, and rotation (x,y,z) of the joint  -->
+  <!-- NOTICE that the rotation of the right wheel is opposite to that of the left wheel -->
 </joint>
 
 <link name="right_wheel">
@@ -134,6 +135,7 @@ This file contains the color of each component for RViz and Gazebo visualization
 </gazebo>
 ```
 ### Fourth step: [Control](robot/control.xacro)
+This XACRO file contains the differential drive plugin for activate de differential drive control for the robot. You can check the documentation of sensor plugins in ROS in the following link !(sensor plugins)[https://classic.gazebosim.org/tutorials?tut=ros_gzplugins]
 ### Fifth step: [Sensors](robot/control.xacro)
 #### Lidar
 #### Contact sensor
