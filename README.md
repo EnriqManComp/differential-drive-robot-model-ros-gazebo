@@ -176,7 +176,7 @@ The creation of the lidar sensor (or laser sensor) is divide in two steps:
 
 ***Note***
 
-You can desactivate the visual representation of the laser setting
+You can deactivate the visual representation of the laser using:
 ```.xml
 <visualize>false</visualize>
 ```
