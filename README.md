@@ -239,5 +239,7 @@ To make the model functional, three nodes were designed.
 3. The third node, the main node (`main_script.py`), subscribes to the `/laser_data` topic to get the laser data and publishes controls to the `control.py` node through the `/controls` topic.
 
 ***These nodes serve as a simple example of how the power of ROS can be utilized to make a robot functional.***
+<p align="center"><img src="images/Node_workflow.png" alt="Node workflow" width="400" heigth="400" /></p>
+
 
 
