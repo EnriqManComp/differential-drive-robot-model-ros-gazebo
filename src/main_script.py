@@ -24,9 +24,9 @@ if __name__=="__main__":
     rospy.init_node("Main_script")   
     main_script = MainScript()
          
-    rate = rospy.Rate(10) # Frecuencia de publicación del mensaje
+    rate = rospy.Rate(10) # message publish frequency
     while not rospy.is_shutdown():        
-        print('Escuchando')
+        print('Listening')
         main_script.print_data()    
         main_script.pub.publish(main_script.control_order)
         rate.sleep()
