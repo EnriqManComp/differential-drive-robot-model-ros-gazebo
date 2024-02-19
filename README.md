@@ -1,4 +1,4 @@
-# Differential Drive Robot (DDR) model for use in ROS and Gazebo (IN PROGRESS)
+# Differential Drive Robot (DDR) model for use in ROS and Gazebo
 <p align="center"><img src="images/default_gzclient_camera(1)-2024-02-05T19_00_15.996300.jpg" alt="Final result" width="600" heigth="600" /></p>
 
 ## Recommended configuration
