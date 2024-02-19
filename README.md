@@ -173,7 +173,9 @@ The creation of the lidar sensor (or laser sensor) is divide in two steps:
    ```
 2) Add the Hokuyo GPU laser plugin and define a topic name for subscribing to the laser data.
 <p align="center"><img src="images/default_gzclient_camera(1)-2024-02-05T14_18_03.891472.jpg" alt="Lidar Sensor" width="600" heigth="600" /></p>
+
 ***Note***
+
 You can desactivate the visual representation of the laser setting
 ```.xml
 <visualize>false</visualize>
