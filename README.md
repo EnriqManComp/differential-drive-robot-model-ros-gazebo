@@ -6,6 +6,10 @@
 - Configure a [catkin workspace](http://wiki.ros.org/catkin/Tutorials/create_a_workspace).
 - [Create packages inside this workspace](http://wiki.ros.org/catkin/Tutorials/CreatingPackage).
 
+For activate the catkin environment you need to run the following prompt command in the project folder
+```.cmd
+source devel/setup.bash
+```
 ## Launcher files
 ### [RViz launcher](launch/rviz_launcher.launch)
 RViz is a 3D visualization tool for ROS. It is commonly used to visualize sensor data, robot models, and other information in a 3D environment.
@@ -192,6 +196,11 @@ In the case of the chassis, it should be specified in this form:
 ```
 Where the name of the collision chassis tag is chassis_link_bump_sensor_collision.
 
+You can subscribe of the data of each bumper sensor through the following topics:
+- ```/robot/right_wheel_contact```
+- ```/robot/left_wheel_contact```
+- ```/robot/chassis_contact```
+
 ## Summary of Command Prompts
 ### XACRO file to URDF file 
 ```cmd 
@@ -209,4 +218,26 @@ sudo apt-get install ros-noetic-teleop-twist-keyboard
 ```cmd
 roslaunch gazebo_ros empty.world
 ```
+### Command for launch the model into a gazebo world 
+```
+roslaunch <your_package_name> gazebo_launcher.launch
+```
+### Command for launch the RViz with the model
+You can use this launch file for visualize the laser capture in RViz.
+```
+roslaunch <your_package_name> rviz_launcher.launch
+```
+
+# Making the Model Functional
+
+To make the model functional, three nodes were designed.
+
+1. The first node, `control.py`, listens to the topic `/controls` published by the main node to retrieve the controls for moving the robot. It then publishes the controls using the topic `/cmd_vel`.
+
+2. The second node, `get_laser_data.py`, continuously acquires 360-degree data from the Hokuyo laser sensor and publishes this data on the topic `/laser_data`.
+
+3. The third node, the main node (`main_script.py`), subscribes to the `/laser_data` topic to get the laser data and publishes controls to the `control.py` node through the `/controls` topic.
+
+***These nodes serve as a simple example of how the power of ROS can be utilized to make a robot functional.***
+
 
