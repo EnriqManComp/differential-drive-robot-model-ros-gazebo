@@ -1,7 +1,11 @@
 # Differential Drive Robot (DDR) model for use in ROS and Gazebo (IN PROGRESS)
+<p align="center"><img src="images/default_gzclient_camera(1)-2024-02-05T19_00_15.996300.jpg" alt="Final result" width="600" heigth="600" /></p>
+
 ## Recommended configuration
+
 - Configure a [catkin workspace](http://wiki.ros.org/catkin/Tutorials/create_a_workspace).
 - [Create packages inside this workspace](http://wiki.ros.org/catkin/Tutorials/CreatingPackage).
+
 ## Launcher files
 ### [RViz launcher](launch/rviz_launcher.launch)
 RViz is a 3D visualization tool for ROS. It is commonly used to visualize sensor data, robot models, and other information in a 3D environment.
@@ -164,6 +168,12 @@ The creation of the lidar sensor (or laser sensor) is divide in two steps:
     <xacro:white_gazebo_material object="laser_frame" />
    ```
 2) Add the Hokuyo GPU laser plugin and define a topic name for subscribing to the laser data.
+<p align="center"><img src="images/default_gzclient_camera(1)-2024-02-05T14_18_03.891472.jpg" alt="Lidar Sensor" width="600" heigth="600" /></p>
+***Note***
+You can desactivate the visual representation of the laser setting
+```.xml
+<visualize>false</visualize>
+```
 
 #### Contact sensor
 For contact sensor for detect collision in the robot, the bumper plugin was used. See sensors.xacro file for more details.
@@ -185,11 +195,11 @@ Where the name of the collision chassis tag is chassis_link_bump_sensor_collisio
 ## Summary of Command Prompts
 ### XACRO file to URDF file 
 ```cmd 
-xacro two_wheeled_robot.xacro > two_wheeled_robot_without_xacro.urdf
+xacro robot.xacro > robot.urdf
 ```
 ### URDF file to SDF file 
 ```cmd
-gz sdf -p two_wheeled_robot_without_xacro.urdf > two_wheeled_robot.sdf
+gz sdf -p robot.urdf > robot.sdf
 ```
 ### Package for the control of the robot
 ```cmd
