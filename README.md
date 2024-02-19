@@ -138,7 +138,49 @@ The structure of each component are describe below:
 This XACRO file contains the differential drive plugin to activate the differential drive control for the robot. You can refer to the documentation of sensor plugins in ROS at the following link: https://classic.gazebosim.org/tutorials?tut=ros_gzplugins
 ### Fifth step: [Sensors](robot/control.xacro)
 #### Lidar
+The creation of the lidar sensor (or laser sensor) is divide in two steps:
+
+1) Create the physical element that represent the sensor. Various laser sensors are available in ROS, and for this instance, the Hokuyo laser plugin was used.
+```.xml
+<!-- Laser sensor -->
+ 
+    <joint name="laser_joint" type="fixed">
+        <!-- The parent and child element ( CHASSIS -> LASER ), and origin (x, y, z) of the joint -->       
+    </joint>
+    <!-- Visual, collision, and inertial properties configuration for the lidar sensor -->   
+    <link name="hokuyo_link">
+        <visual>
+            <geometry>...</geometry>
+            <xacro:white_material />            
+        </visual>
+        <collision>
+            <geometry>...</geometry>
+        </collision>
+        <xacro:inertial_cylinder mass="0.1" length="0.04" radius="0.05">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </xacro:inertial_cylinder>
+    </link>
+    <!-- Gazebo color configuration --> 
+    <xacro:white_gazebo_material object="laser_frame" />
+   ```
+2) Add the Hokuyo GPU laser plugin and define a topic name for subscribing to the laser data.
+
 #### Contact sensor
+For contact sensor for detect collision in the robot, the bumper plugin was used. See sensors.xacro file for more details.
+***NOTE***
+Each robot component has a name for the collision tag, specified for the bumper plugin. When referring to each component's collision name, you need to append '_collision' to the collision tag of the plugin.
+```.xml
+<contact>
+   <collision>left_wheel_link_bump_sensor_collision_collision</collision>
+</contact>
+```
+In the case of the chassis, it should be specified in this form:
+```.xml
+<contact>
+   <collision>base_link_fixed_joint_lump__chassis_link_bump_sensor_collision_collision</collision>
+</contact>
+```
+Where the name of the collision chassis tag is chassis_link_bump_sensor_collision.
 
 ## Summary of Command Prompts
 ### XACRO file to URDF file 
